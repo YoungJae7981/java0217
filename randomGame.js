@@ -1,31 +1,19 @@
-// Select the button element
-let submitBtn = document.getElementById("submitBtn");
+function verify() {
+  const value = parseInt(document.getElementById("guessed").value, 10);
+  console.dir(document.getElementById("guessed"));
+  const getRandom = Math.floor(Math.random() * 10 + 1);
+  const p = document.createElement("p");
 
-// Add an event listener to the button
-submitBtn.addEventListener("click", function () {
-  // Step 1: Get input value
-  let input_value = parseInt(document.getElementById("guessed").value);
-
-  // Step 2: Generate random value
-  let random_value = Math.floor(Math.random() * 10) + 1;
-
-  // Step 3: Create output message tags
-  let output_message = "";
-
-  // Check if the input value is a number between 1 and 10
-  if (isNaN(input_value)) {
-    output_message = "입력이 잘못됐어 1부터 10까지 숫자만 얘기해야해";
-  } else if (input_value < 1 || input_value > 10) {
-    output_message = "1부터 10까지라고";
+  if (isNaN(value)) {
+    p.innerHTML = "숫자를 입력해주세요.";
+  } else if (value < 1 || value > 10) {
+    p.innerHTML = "1과 10 사이의 숫자를 입력해주세요."
+  } else if (value === getRandom) {
+    p.innerHTML = "You win !!!";
   } else {
-    // We need to check if the input value matches the random value
-    if (input_value === random_value) {
-      output_message = "축하해 니가 맞았어";
-    } else {
-      output_message = `정답은 이거야~ ${random_value}.`;
-    }
+    p.innerHTML = `You lose. 정답은 ${getRandom}입니다. Please try again!`;
   }
-
-  // Display the output message
-  document.body.innerHTML = output_message;
-});
+  const pTag = document.querySelector('p');
+  pTag.remove();
+  document.body.append(p);
+}
